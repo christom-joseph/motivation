@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Believe: Daily Motivation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: {{ bg_color }};
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.5s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .coffee-quote-container {
+            background-color: rgba(255, 255, 255, 0.92);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            overflow: hidden;
+        }
+        .coffee-steam {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 100px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23A0522D"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/></svg>') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: steam 2s infinite alternate;
+        }
+        .site-name {
+            position: fixed;
+            top: 140px; /* Adjust as needed for spacing */
+            left: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #4A3F35;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .date-display {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #4A3F35;
+            font-weight: bold;
+        }
+        @keyframes steam {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            line-height: 1.6;
+            color: #4A3F35;
+            margin: 20px 0;
+            font-style: italic;
+            position: relative;
+            z-index: 10;
+        }
+        .quote::before, .quote::after {
+            content: '"';
+            color: #A0522D;
+            font-size: 50px;
+            position: absolute;
+            opacity: 0.3;
+        }
+        .quote::before {
+            left: -30px;
+            top: -10px;
+        }
+        .quote::after {
+            right: -30px;
+            bottom: -30px;
+        }
+        .author {
+            font-size: 18px;
+            color: #6F4E37;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        .refresh-btn {
+            background-color: #8B4513;
+            color: #FFF;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        .refresh-btn:hover {
+            background-color: #A0522D;
+            transform: scale(1.05);
+        }
+        .play-music-btn {
+            background-color: #6F4E37;
+            color: #FFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .play-music-btn:hover {
+            background-color: #8B4513;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="date-display" id="date-display"></div>
+    <div class="coffee-steam"></div>
+    <div class="site-name">Brew & Believe</div>
+    <div class="coffee-quote-container">
+        <div class="quote">
+            {{ quote }}
+        </div>
+        <button class="refresh-btn" onclick="window.location.reload()">
+            Brew New Inspiration
+        </button>
+        <button class="play-music-btn" onclick="document.getElementById('background-music').play()">
+            Play Music
+        </button>
+    </div>
+    <audio id="background-music" src="app/templates/roa-music-walk-around(chosic.com).mp3" loop>
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        // Display Date
+        const dateDisplay = document.getElementById('date-display');
+        const currentDate = new Date().toDateString();
+        dateDisplay.textContent = currentDate;
+
+        // Play Music
+        const audio = document.getElementById('background-music');
+        const playButton = document.querySelector('.play-music-btn');
+
+        playButton.addEventListener('click', () => {
+            audio.play().catch(error => {
+                console.log('Autoplay failed. User interaction required to play audio.');
+            });
+        });
+    </script>
+</body>
+</html>
